@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#PBS -l wd
+#PBS -P te48  
+#PBS -N outflank
+#PBS -l walltime=00:10:00,mem=8Gb,ncpus=1,jobfs=4Gb
+#PBS -l storage=scratch/mo73+gdata/te48
+#PBS -W umask=022
+#PBS -M jose.mijangosaraujo@sydney.edu.au
+#PBS -m abe
+#PBS -q normal
+#PBS -o /g/data/te48/outflank.o
+#PBS -e /g/data/te48/outflank.e
+
+set -e
+
+module load R/4.2.1
+module load gdal/3.0.2
+module load proj/6.2.1
+module load geos/3.8.0  
+module load nci-parallel/1.0.0a
+module load openmpi/4.1.0
+
+export R_LIBS=/home/549/jm9807/.R
+
+Rscript /g/data/te48/final_platypus/scripts/analyses_platypus.R 21
+
+#INPUTS=/home/549/jm9807/dedup_sort.inputs_1.txt
+#NCPUS=4 #cpus per task
+#SCRIPT="Rscript dedup_1.R"  #Script to run
+
+
+#M=$(( PBS_NCI_NCPUS_PER_NODE / NCPUS )) #tasks per node
+
+#sed "s|^|${SCRIPT} |" ${INPUTS} > ${PBS_JOBFS}/input-file
+
+#mpirun --np $((M * PBS_NCPUS / PBS_NCI_NCPUS_PER_NODE)) \
+#        --map-by node:PE=${NCPUS} \
+#        nci-parallel \
+#        --verbose \
+#        --input-file ${PBS_JOBFS}/input-file

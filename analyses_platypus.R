@@ -1,12 +1,12 @@
 #installing the developing version of dartR
-library(devtools)
-install_github("green-striped-gecko/dartR@dev_luis")
+ library(devtools)
+ install_github("green-striped-gecko/dartR@dev_luis")
 # loading packages
 library(ape)
 library(dartR)
 library(stringr)
 library(dplyr)
-library(tictoc)
+# library(tictoc)
 library(data.table)
 
 ########################################################################
@@ -29,6 +29,7 @@ load_list <- load_platy(chrom="X2")
 gff <- load_list$gff
 genes <- load_list$genes
 gene_ox <- load_list$gl_ox
+gene_ox_newcc <- load_list$gl_ox_new
 gene_dart <- load_list$gl_dart
 gene_26 <- load_list$gl_26
 gene_dart_26 <- load_list$gl_dart_26
